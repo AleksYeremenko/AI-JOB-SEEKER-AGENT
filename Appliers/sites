@@ -1,0 +1,65 @@
+
+    # ========================================================================
+    # 🌍 ДОПОЛНИТЕЛЬНЫЕ 50 САЙТОВ ДЛЯ МАСШТАБИРОВАНИЯ (SAAS УРОВЕНЬ)
+    # ========================================================================
+
+    # --- КРУПНЫЕ АГРЕГАТОРЫ И ГЛОБАЛЬНЫЕ БОРДЫ ---
+    # def test_monster(self, page, context, job_link): pass
+    # def test_ziprecruiter(self, page, context, job_link): pass
+    # def test_careerbuilder(self, page, context, job_link): pass
+    # def test_simplyhired(self, page, context, job_link): pass
+    # def test_jooble(self, page, context, job_link): pass
+    # def test_adzuna(self, page, context, job_link): pass
+    # def test_talentcom(self, page, context, job_link): pass
+
+    # --- ЕВРОПА (УГЛУБЛЕНИЕ: DACH, UK, ВОСТОЧНАЯ ЕВРОПА) ---
+    # def test_stepstone(self, page, context, job_link): pass # №1 в Германии
+    # def test_xing(self, page, context, job_link): pass # Главный конкурент LinkedIn в DACH
+    # def test_cwjobs(self, page, context, job_link): pass # IT вакансии в UK
+    # def test_technojobs(self, page, context, job_link): pass # UK Tech
+    # def test_reed(self, page, context, job_link): pass # Огромный борд в UK
+    # def test_honeypot(self, page, context, job_link): pass # Платформа для разрабов в Европе (реверсивный поиск)
+    # def test_swissdevjobs(self, page, context, job_link): pass # Швейцария (очень высокие ЗП)
+    # def test_devitjobs(self, page, context, job_link): pass # UK/US версия SwissDevJobs
+    # def test_djinni(self, page, context, job_link): pass # №1 анонимный поиск в Восточной Европе
+    # def test_dou(self, page, context, job_link): pass # Главный IT-портал Украины
+
+    # --- УДАЛЕНКА (РАСШИРЕНИЕ) ---
+    # def test_remoteco(self, page, context, job_link): pass
+    # def test_justremote(self, page, context, job_link): pass
+    # def test_remotewoman(self, page, context, job_link): pass
+    # def test_flexiple(self, page, context, job_link): pass
+    # def test_dailyremote(self, page, context, job_link): pass
+    # def test_skipthedrive(self, page, context, job_link): pass
+    # def test_remoteglobal(self, page, context, job_link): pass
+    # def test_crossover(self, page, context, job_link): pass # Специфичный найм топовых разрабов удаленно
+    # def test_jobgether(self, page, context, job_link): pass
+
+    # --- TECH-ФОКУС И СТАРТАПЫ (США И МИР) ---
+    # def test_builtin(self, page, context, job_link): pass # Огромная сеть хабов (BuiltIn NYC, BuiltIn SF и тд)
+    # def test_angelmatch(self, page, context, job_link): pass
+    # def test_authenticjobs(self, page, context, job_link): pass # Дизайн и веб-разработка
+    # def test_hackerrankjobs(self, page, context, job_link): pass # Работа через платформу HackerRank
+    # def test_gunio(self, page, context, job_link): pass # Элитные разработчики
+    # def test_braintrust(self, page, context, job_link): pass # Web3 фриланс/фуллтайм сеть
+    # def test_turing(self, page, context, job_link): pass # Удаленка в кремниевой долине
+
+    # --- УЗКИЕ ТЕХНОЛОГИЧЕСКИЕ НИШИ ---
+    # def test_rubynow(self, page, context, job_link): pass
+    # def test_pythonorg(self, page, context, job_link): pass
+    # def test_vuejobs(self, page, context, job_link): pass
+    # def test_larajobs(self, page, context, job_link): pass
+    # def test_golangprojects(self, page, context, job_link): pass
+    # def test_reactjobs(self, page, context, job_link): pass
+    # def test_uxdesignjobs(self, page, context, job_link): pass
+
+    # --- AI, ML И WEB3 (САМЫЕ ГОРЯЧИЕ РЫНКИ) ---
+    # def test_web3career(self, page, context, job_link): pass
+    # def test_cryptocurrencyjobs(self, page, context, job_link): pass
+    # def test_aijobs(self, page, context, job_link): pass
+    # def test_machinelearningjobs(self, page, context, job_link): pass
+
+    # --- АЗИЯ И ИНДИЯ (ОГРОМНЫЕ РЫНКИ) ---
+    # def test_naukri(self, page, context, job_link): pass # Монополист в Индии
+    # def test_instahyre(self, page, context, job_link): pass # Топовые IT стартапы Индии
+    # def test_itjobswatch(self, page, context, job_link): pass
