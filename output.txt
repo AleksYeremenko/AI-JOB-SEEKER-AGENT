@@ -1,0 +1,134 @@
+
+    <div class="d-flex flex-column gap-1">
+      <a href="/jobs/841399-technical-support-specialist-l1-l2-english-b2/" class="job_item__header-link d-flex flex-column gap-1 text-decoration-none">
+        
+  <header class="row gx-2 align-items-start">
+    
+      <div class="col-auto">
+        
+
+
+
+
+  
+
+
+<div id="" class="userpic-wrapper userpic-color_0 userpic_sm_3  userpic-transparent is-company-logo userpic--logo" data-initials="W" style="--userpic-bg: var(--userpic-color-0)">
+  
+    <img class="userpic-image userpic-image_img" src="https://p.djinni.co/03/e2a5ccca5556925707abb60c3dec3b/Screenshot_2025-01-24_at_14.34.20_400.png" loading="lazy" alt="" onerror="this.classList.add('d-none')" itemprop="image">
+  
+</div>
+
+      </div>
+    
+    <div class="col">
+      <h2 class="job-item__position fs-4 m-0 mb-1">Technical Support Specialist (L1, L2, English B2+)</h2>
+      <div class="d-flex flex-wrap align-items-center column-gap-1">
+        <span class="small text-gray-800 opacity-75 font-weight-500">WOW 24-7</span>
+        <span class="d-flex flex-wrap align-items-center column-gap-1"><span class="text-primary" data-bs-toggle="tooltip" title="Company has confirmed hires">
+    
+  <svg class="bi bi-svg " aria-hidden="true" focusable="false"><use href="/static/icons/bootstrap-icons.svg#patch-check-fill"></use></svg>
+
+  </span></span>
+      </div>
+    </div>
+    <div class="col-auto">
+      <div class="fs-5">
+        
+          
+  
+    <span class="text-body-tertiary fw-medium" data-bs-toggle="tooltip" title="Salary level relative to other jobs: $ — below average, $$ — around average, $$$ — above average, $$$$ — top range">$$</span>
+  
+
+        
+      </div>
+    </div>
+  </header>
+
+      </a>
+      
+  <div class="fw-medium d-flex flex-wrap align-items-center column-gap-1">
+    
+
+    
+      <span class="text-nowrap">Full Remote</span>
+      <span class="middot"> · </span>
+    
+
+    <span class="text-nowrap">
+      
+        
+    
+    
+    
+    <span class="location-text">Countries of Europe or Ukraine</span>
+
+  
+
+      
+    </span>
+
+    
+      <span class="middot"> · </span>
+      <span class="text-nowrap">1 year of experience</span>
+    
+
+    
+      <span class="middot"> · </span>
+      <span class="text-nowrap">English - C1</span>
+    
+
+    
+      <span class="middot"> · </span>
+      <span class="text-nowrap">E-commerce / Marketplace</span>
+    
+  </div>
+  <div class="job-item__tags">
+    
+  
+
+  
+
+  
+
+  </div>
+
+      
+        
+  
+  <div id="job-description-841399">
+    
+      
+        <span class="js-truncated-text">We are looking for a Technical Support Specialist (L1/L2) to join our support team and provide customer-facing technical assistance for hardware, software, and connectivity-related issues.
+In this role, you will handle first- and second-level support requests, troubleshoot Windows environments and basic network issues, assist with device (IoT/data logger) configuration, and escalate complex technical cases to higher-level engineering teams when needed.
+You will work closely with Team Leaders, QA,... </span>
+        <span class="js-original-text description-expandable d-none"><p>We&nbsp;are looking for a&nbsp;Technical Support Specialist (L1/L2) to&nbsp;join our support team and provide customer-facing technical assistance for hardware, software, and connectivity-related issues.</p><p>In&nbsp;this role, you will handle first- and second-level support requests, troubleshoot Windows environments and basic network issues, assist with device (IoT/data logger) configuration, and escalate complex technical cases to&nbsp;higher-level engineering teams when needed.</p><p>You will work closely with Team Leaders, QA, Operations, and Engineering to&nbsp;ensure high-quality service delivery, accurate documentation, and continuous process improvement.</p><p>This role combines technical troubleshooting with customer communication and requires a&nbsp;structured, solution-oriented mindset.<br>&nbsp;</p><p><strong>Requirements:</strong></p><p>&nbsp;</p><ul><li>Experience in&nbsp;L1/L2 technical support or&nbsp;IT service desk roles</li><li>Basic knowledge of&nbsp;Windows Server environments</li><li>Basic&nbsp;MS SQL knowledge (user-level: queries, validation, data checks)</li><li>Fundamental understanding of&nbsp;network technologies and protocols</li><li>Experience configuring or&nbsp;supporting IoT devices or&nbsp;measurement data loggers (or&nbsp;strong willingness to&nbsp;learn)</li><li>Confident in&nbsp;written and spoken English</li><li>Independent, reliable, and detail-oriented working style</li><li>Technical and solution-oriented mindset</li><li>Strong interpersonal and communication skills<br>&nbsp;</li></ul><p><strong>Responsibilities:</strong></p><ul><li>Provide L1/L2 technical support via email, chat, and calls</li><li>Troubleshoot Windows environment issues and basic network connectivity problems</li><li>Perform basic&nbsp;MS SQL checks and validate measurement or&nbsp;system data</li><li>Support configuration and deployment of&nbsp;IoT devices/data loggers following documented procedures</li><li>Collect logs, reproduce issues, and prepare structured escalations for L3 / Engineering teams</li><li>Maintain accurate ticket documentation in&nbsp;CRM/helpdesk systems</li><li>Follow internal workflows, SLAs, and quality standards</li><li>Contribute to&nbsp;knowledge base creation and continuous process improvements</li><li>Collaborate with Team Leaders, QA, Operations, and Engineering<br>&nbsp;</li></ul><p><strong>Would be&nbsp;a&nbsp;plus:</strong></p><ul><li>Experience with Zendesk and similar ticketing platforms</li><li>Previous BPO / outsourcing experience</li><li>Technical education or&nbsp;certifications</li><li>Experience supporting SaaS or&nbsp;hardware-enabled products</li><li>Familiarity with structured troubleshooting methodologies<br>&nbsp;</li></ul><p><strong>Work conditions:</strong></p><ul><li>Remote work;</li><li>The probation period is&nbsp;2 months;</li><li>2 non-fixed days off per week.</li><li><strong>3 types of&nbsp;work shifts: morning 8:00−16:000, Day 16:00—0:00, night shift 0:00−8:00</strong></li></ul></span>
+        <a href="#job-item-841399" role="button" data-toggle="show-more" data-target="#job-description-841399" data-truncated-state="true" data-more-text="More" data-less-text="Hide details">
+          <span class="text-nowrap">More</span>
+        </a>
+      
+    
+  </div>
+
+      
+      <div class="d-flex flex-column gap-1">
+        
+        <div class="d-flex align-items-center gap-1 fs-5">
+          <span class="text-nowrap">
+            16 views
+          </span>
+          <span class="middot"> · </span>
+          <span class="text-nowrap">
+            0 applications
+          </span>
+          
+            <span class="middot"> · </span>
+            <span class="text-nowrap" title="21:28 05.08.2026" data-bs-toggle="tooltip">
+              1d
+            </span>
+          
+        </div>
+        
+      </div>
+    </div>
+  

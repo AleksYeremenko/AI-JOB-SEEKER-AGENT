@@ -86,7 +86,8 @@ class SiteRegistry:
         if pending_html:
             print(f"\n⚡ [SiteRegistry] {len(pending_html)} ссылок → загружаю в 20 потоков...")
             try:
-                with concurrent.futures.ThreadPoolExecutor(max_workers=20) as executor:
+                workers = max(1, int(20 * getattr(self.settings, 'work_speed', 100) / 100.0))
+                with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
                     futures = [executor.submit(self._fetch_job_page, job) for job in pending_html]
                     for future in concurrent.futures.as_completed(futures):
                         result = future.result()

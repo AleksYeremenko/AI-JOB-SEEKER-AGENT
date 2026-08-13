@@ -1,0 +1,16 @@
+=== INPUTS ===
+Type: text | Name: None | Placeholder: Search: Job title, company, keyword | Class: MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedStart mui-jn9c8
+Type: text | Name: None | Placeholder: Location | Class: MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedStart mui-jn9c8
+Type: text | Name: None | Placeholder: Radius | Class: MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputAdornedEnd MuiAutocomplete-input MuiAutocomplete-inputFocused mui-1rpv0qa
+Type: checkbox | Name: None | Placeholder: None | Class: mui-77hcv
+Type: text | Name: name | Placeholder: Enter your first and last name | Class: MuiInputBase-input MuiOutlinedInput-input mui-h4jai0
+Type: text | Name: email | Placeholder: Enter your email address | Class: MuiInputBase-input MuiOutlinedInput-input mui-h4jai0
+Type: file | Name: attachment | Placeholder: None | Class: None
+Type: checkbox | Name: None | Placeholder: None | Class: PrivateSwitchBase-input MuiSwitch-input mui-j8yymo
+Type: checkbox | Name: create_account_accepted | Placeholder: None | Class: PrivateSwitchBase-input mui-j8yymo
+Type: checkbox | Name: custom_consent_accepted | Placeholder: None | Class: PrivateSwitchBase-input mui-j8yymo
+Type: checkbox | Name: future_consent_accepted | Placeholder: None | Class: PrivateSwitchBase-input mui-j8yymo
+Type: checkbox | Name: marketing_consent_accepted | Placeholder: None | Class: PrivateSwitchBase-input mui-j8yymo
+
+=== TEXTAREAS ===
+Name: g-recaptcha-response | Placeholder: None | Class: g-recaptcha-response

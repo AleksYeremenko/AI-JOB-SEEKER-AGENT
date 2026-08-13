@@ -1,114 +1,94 @@
 import os
 import time
 from datetime import datetime
-import pandas as pd
-import re
-import gc  # Сборщик мусора Python
+import gc
 import psutil
+import json
 
 from dotenv import load_dotenv
-from smart_hybrid_applier import SmartHybridApplier
-
 load_dotenv("Data/.env")
 
 from utils.llm_handler import LLMHandler
-from utils.comfy_connector import send_to_comfy
 from Scraping.multi_scraper import MultiScraper
 from Scraping.universal_scraper import UniversalScraper
-from Core.resume_manager import ResumeManager
-from Core.job_analyzer import JobAnalyzer
 
-from excel_logger import log_application
-from osint_module import OSINTAgent
+# Заглушки для отсутствующих модулей
+def get_links_from_email():
+    print("📭 [EMAIL] Email listener отключен")
+    return []
 
-# 🔥 ИМПОРТЫ НАШЕГО ЗАВОДА И ТЕЛЕГРАМА 🔥
-from pipeline_processor import PipelineProcessor
-from telegram_bot import TelegramApprovalBot
+def log_application(job, status):
+    print(f"📋 [LOG] {job.get('company', 'Unknown')} - {status}")
 
-try:
-    from universal_applier import UniversalApplier
+# ==========================================
+# КОНФИГИ (ИЗ UI ИЛИ ФАЙЛА)
+# ==========================================
+USER_SETTINGS_FILE = "Data/user_settings.json"
 
-    HAS_APPLIER = True
-except ImportError:
-    HAS_APPLIER = False
+def load_user_settings():
+    """Читает настройки из UI (сохраненные в файле)"""
+    if os.path.exists(USER_SETTINGS_FILE):
+        with open(USER_SETTINGS_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    else:
+        # Дефолтные значения если UI еще не запускали
+        return {
+            "position": "Python Developer",
+            "tech_stack": "Python, Django, PostgreSQL, Docker",
+            "stack_match_percent": 50,
+            "city": "Warsaw",
+            "job_type": "Backend",
+            "email": "yeremenkoaleks1@gmail.com",
+            "cv_path": "Data/my_cv.pdf"
+        }
 
-try:
-    from email_listener import get_links_from_email
-    from mailer import send_to_hr
-except ImportError:
-    def get_links_from_email():
-        return []
+USER_SETTINGS = load_user_settings()
 
-
-    def send_to_hr(*args, **kwargs):
-        return False
-
-# ==============================================================
-# КОНФИГИ И ПУТИ
-# ==============================================================
 MY_PROFILE = {
     "first_name": "Oleksandr",
     "last_name": "Yeremenko",
-    "email": "yeremenkoaleks1@gmail.com",
+    "email": USER_SETTINGS["email"],
     "phone": "+48516478223",
     "linkedin": "",
     "github": "https://github.com/AleksYeremenko"
 }
 
-CV_FILE_NAME = "my_cv.pdf"
+CV_FILE_NAME = USER_SETTINGS.get("cv_path", "Data/my_cv.pdf")
 SEEN_JOBS_FILE = "seen_jobs.txt"
-EXCEL_DB_FILE = "Data/my_applications.xlsx"
-ATS_DB_FILE = "Data/ats_database.json"
-APPLICATIONS_DIR = "Applications"
 
 seen_jobs = set()
 if os.path.exists(SEEN_JOBS_FILE):
     with open(SEEN_JOBS_FILE, "r", encoding="utf-8") as f:
         seen_jobs.update(line.strip() for line in f if line.strip())
 
-resume_mgr = ResumeManager()
-
-# Делаем бота глобальным, чтобы колбэки могли отправлять сообщения
-tg_bot = None
-
-
 # ==============================================================
-# КОЛБЭКИ ТЕЛЕГРАМ-БОТА (Реакция на кнопки ✅ и ❌)
+# ФИЛЬТРЫ (ПРОСТЫЕ, БЕЗ LLM)
 # ==============================================================
-def on_approve(job_id, job):
-    print(f"✅ [TG] Одобрено: {job['company']}")
-    try:
-        # Гибридный апплаер сам решает: Playwright или Ollama
-        status = hybrid_applier.apply(
-            job_link     = job["link"],
-            cv_path      = job["cv_path"],
-            cover_letter = job.get("cover_letter", ""),
-        )
+def is_junior_or_mid(job):
+    """Простой фильтр: убираем Senior/Lead"""
+    title = job.get("title", "").lower()
+    bad_words = ["senior", "sr.", "sr ", "lead", "principal", "manager", "architect", "head", "director", "cto"]
+    return not any(word in title for word in bad_words)
 
-        if tg_bot:
-            tg_bot.send_message(f"📨 {job['company']}: {status}")
+def stack_match_simple(job, target_stack):
+    """Простое совпадение стека (без LLM)"""
+    job_text = f"{job.get('title', '')} {job.get('description', '')}".lower()
+    stack_keywords = [s.strip().lower() for s in target_stack.split(",")]
 
-        if os.path.exists(EXCEL_DB_FILE):
-            df = pd.read_excel(EXCEL_DB_FILE)
-            df.loc[df["link"] == job["link"], "status"] = status
-            df.to_excel(EXCEL_DB_FILE, index=False)
+    matches = sum(1 for keyword in stack_keywords if keyword in job_text)
+    total = len(stack_keywords)
 
-    except Exception as e:
-        print(f"❌ Ошибка: {e}")
-        if tg_bot:
-            tg_bot.send_message(f"❌ {job['company']}: {e}")
+    if total == 0:
+        return 0
 
-def on_reject(job_id, reason):
-    print(f"❌ [TG] Вакансия отклонена юзером: {job_id}")
-    send_to_comfy("REJECTED BY USER")
+    match_percent = int((matches / total) * 100)
+    return match_percent
 
-
-# ==============================================================
+# ==========================================
 # ОЧИСТКА ПАМЯТИ
-# ==============================================================
+# ==========================================
 def kill_zombie_browsers():
-    """Убивает зависшие процессы Playwright (Chromium/Node), не трогая основной браузер юзера"""
-    print("🧹 [RAM] Запускаю очистку оперативной памяти от зомби-процессов...")
+    """Убивает зависшие процессы Playwright"""
     killed_count = 0
     gc.collect()
 
@@ -129,111 +109,152 @@ def kill_zombie_browsers():
                 pass
 
         if killed_count > 0:
-            print(f"♻️ [RAM] Убито {killed_count} зависших скрытых процессов. Память освобождена!")
-        else:
-            print("♻️ [RAM] Зомби не найдено, память чистая.")
-    except Exception as e:
+            print(f"♻️ [RAM] Убито {killed_count} зависших процессов")
+    except Exception:
         pass
-
 
 # ==============================================================
 # ГЛАВНЫЙ ЦИКЛ
 # ==============================================================
 def run_daemon():
-    global tg_bot
-    print("🚀 AI-Агент (Конвейерная Версия) запущен!")
+    print("🚀 AI Job Seeker Agent (MVP) запущен!")
+    print("=" * 60)
+    print(f"🎯 Должность: {USER_SETTINGS['position']}")
+    print(f"🛠️  Стек: {USER_SETTINGS['tech_stack']}")
+    print(f"📊 Min Match: {USER_SETTINGS['stack_match_percent']}%")
+    print(f"📍 Город: {USER_SETTINGS['city']}")
+    print(f"📧 Email: {USER_SETTINGS['email']}")
+    print("=" * 60)
 
     llm = LLMHandler()
-    hunter_key = os.getenv("HUNTER_API_KEY")
-    osint_agent = OSINTAgent(hunter_key)
 
-    if os.path.exists(EXCEL_DB_FILE):
-        try:
-            df_history = pd.read_excel(EXCEL_DB_FILE)
-            if 'link' in df_history.columns:
-                seen_jobs.update(df_history["link"].dropna().tolist())
-        except Exception as e:
-            pass
+    # Извлекаем ключевые слова для парсинга
+    search_keywords = [s.strip() for s in USER_SETTINGS['tech_stack'].split(",")]
+    min_match = USER_SETTINGS['stack_match_percent']
 
-    cv_raw_text = resume_mgr.extract_text_from_pdf(CV_FILE_NAME)
-    my_real_stack = resume_mgr.analyze_my_cv(llm, cv_raw_text)
-    print(f"🎯 Мой полный арсенал: {my_real_stack}")
-
-    try:
-        with open(ATS_DB_FILE, "r", encoding="utf-8") as f:
-            ats_db = f.read()
-    except:
-        ats_db = "{}"
-
-    analyzer = JobAnalyzer(llm, ats_db, my_real_stack)
-    search_keywords = ["Java", ".NET", "Python", "React", "CyberSecurity", "DevOps"]
-
-    # Создаем гибридный апплаер для обхода сложных ATS-систем
-    hybrid_applier = SmartHybridApplier(
-        profile_data=MY_PROFILE,
-        llm_handler=llm,  # Твой Groq — используется только для CV
-        config_dir=os.path.join(os.path.dirname(__file__), "Appliers", "site_configs")
-    )
-
-    # Инициализация Telegram Бота и Конвейера
-    tg_bot = TelegramApprovalBot(on_approve=on_approve, on_reject=on_reject)
-    # Запускаем конвейер, передавая в него наш новый hybrid_applier
-    pipeline = PipelineProcessor(
-        groq_llm=llm,
-        analyzer=analyzer,
-        resume_mgr=resume_mgr,
-        osint_agent=osint_agent,
-        telegram_bot=tg_bot,
-        profile=MY_PROFILE,
-        excel_logger=log_application,
-        hybrid_applier=hybrid_applier,  # <-- Вот это самое важное добавление
-    )
+    cycle_count = 0
 
     while True:
+        cycle_count += 1
+        print(f"\n{'=' * 60}")
+        print(f"🔄 ЦИКЛ #{cycle_count} [{datetime.now().strftime('%H:%M:%S')}]")
+        print(f"{'=' * 60}")
+
         all_new_jobs = []
 
+        # 1. Проверяем почту
         print(f"\n[{datetime.now().strftime('%H:%M:%S')}] 📬 Проверяю почту...")
         email_links = get_links_from_email()
-        if email_links:
-            direct_scraper = UniversalScraper(["Developer"], seen_jobs=seen_jobs)
-            for link in email_links:
-                if link not in seen_jobs:
-                    job_data = direct_scraper.scrape_direct_link(link)
-                    if job_data: all_new_jobs.append(job_data)
 
-        print(f"\n[{datetime.now().strftime('%H:%M:%S')}] 🔄 Начинаю сканирование джоб-бордов...")
-        for skill in search_keywords:
-            multi_scraper = MultiScraper([skill], seen_jobs=seen_jobs)
-            heavy_scraper = UniversalScraper([skill], seen_jobs=seen_jobs)
+        # 2. ПАРСИМ ВАКАНСИИ (польские сайты)
+        print(f"\n[{datetime.now().strftime('%H:%M:%S')}] 🔍 Сканирую польские сайты...")
+        for keyword in search_keywords[:2]: # Берем только первые 2 слова (экономим время)
+            print(f"   🔎 Ключевое слово: {keyword}")
 
-            jobs = multi_scraper.run() + heavy_scraper.get_all_jobs()
+            # UniversalScraper (JustJoin, Pracuj, NoFluff и т.д.)
+            polish_scraper = UniversalScraper([keyword], seen_jobs=seen_jobs)
+            polish_jobs = polish_scraper.get_all_jobs()
 
-            for j in jobs:
-                if not any(existing['link'] == j['link'] for existing in all_new_jobs):
-                    all_new_jobs.append(j)
-            time.sleep(3)
+            all_new_jobs.extend(polish_jobs)
+            time.sleep(2)
+
+        # 3. ПАРСИМ ГЛОБАЛЬНЫЕ САЙТЫ (опционально)
+        print(f"\n[{datetime.now().strftime('%H:%M:%S')}] 🌍 Сканирую глобальные сайты...")
+        for keyword in search_keywords[:1]: # Берем только 1 слово для глобала
+            global_scraper = MultiScraper([keyword], seen_jobs=seen_jobs)
+            global_jobs = global_scraper.run()
+
+            all_new_jobs.extend(global_jobs)
+            time.sleep(2)
 
         if not all_new_jobs:
-            print("📭 По ВСЕМ направлениям пусто. Рынок спит. Ухожу в спячку на 15 минут...")
-            time.sleep(900)
+            print("\n📭 Новых вакансий нет.")
+            time.sleep(900)  # 15 минут
             continue
 
-        all_new_jobs.sort(key=lambda x: x.get('priority', 0), reverse=True)
-        print(f"✅ Найдено {len(all_new_jobs)} уникальных вакансий! Отдаю в ЦЕХ НА ОБРАБОТКУ...")
+        print(f"\n✅ Найдено {len(all_new_jobs)} уникальных вакансий!")
+        print("=" * 60)
 
-        # 🔥 МАГИЯ КОНВЕЙЕРА: вместо зависания на одном потоке, мы отдаем всё на наш "завод"
-        pipeline.run(all_new_jobs, my_real_stack, ats_db, seen_jobs)
+        # 4. ФИЛЬТРУЕМ ВАКАНСИИ
+        filtered_jobs = []
 
-        # Сохраняем все увиденные ссылки, чтобы не парсить их снова
+        for job in all_new_jobs:
+            # Фильтр 1: Junior/Mid only
+            if not is_junior_or_mid(job):
+                print(f"   ⏭️  {job['company']} - {job['title']} (Senior/Lead)")
+                continue
+
+            # Фильтр 2: Stack Match
+            match_percent = stack_match_simple(job, USER_SETTINGS['tech_stack'])
+
+            if match_percent < min_match:
+                print(f"   ⏭️  {job['company']} - {job['title']} (Low match: {match_percent}%)")
+                continue
+
+            job['match_percent'] = match_percent
+            filtered_jobs.append(job)
+            print(f"   ✅ {job['company']} - {job['title']} (Match: {match_percent}%)")
+
+        print(f"\n📊 Прошли фильтр: {len(filtered_jobs)} из {len(all_new_jobs)}")
+
+        # 5. СОРТИРУЕМ ПО ПРИОРИТЕТУ
+        filtered_jobs.sort(key=lambda x: (x.get('priority', 0), x.get('match_percent', 0)), reverse=True)
+
+        # 6. ПРИМЕНЯЕМСЯ (пока заглушка)
+        for idx, job in enumerate(filtered_jobs[:10], 1):  # Топ-10 вакансий
+            print(f"\n📋 [{idx}/{len(filtered_jobs)}] {job['company']} - {job['title']}")
+            print(f"   🔗 {job['link']}")
+            print(f"   📊 Match: {job['match_percent']}%, Priority: {job.get('priority', 0)}")
+
+            # Реальный applier
+            try:
+                from Appliers.justjoin_applier_drission import JustJoinApplier
+                from DrissionPage import ChromiumPage, ChromiumOptions
+                
+                print(f"   ⏳ Запускаю DrissionPage для отклика...")
+                co = ChromiumOptions()
+                co.set_argument('--disable-blink-features=AutomationControlled')
+                co.set_argument('--disable-infobars')
+                co.set_user_data_path(r"C:\Users\yerem\AI-JOB-SEEKER-AGENT\Data\Chrome_Profile")
+                
+                # Запускаем браузер для апплая
+                page = ChromiumPage(co)
+                
+                applier = JustJoinApplier(USER_SETTINGS)
+                # TODO: Нужно передавать правильный путь к CV, пока берем дефолтный
+                cv_path = r"C:\Users\yerem\AI-JOB-SEEKER-AGENT\Data\my_cv.pdf"
+                status = applier.apply(page, job['link'], cv_path)
+                
+                log_application(job, status)
+                page.quit()
+            except Exception as e:
+                print(f"   ❌ Ошибка авто-отклика: {e}")
+                log_application(job, "Error")
+
+            seen_jobs.add(job['link'])
+            time.sleep(3)
+
+        # 7. Сохраняем seen_jobs
+        print(f"\n💾 Сохраняю просмотренные вакансии...")
         with open(SEEN_JOBS_FILE, "w", encoding="utf-8") as f:
-            for link in seen_jobs: f.write(link + "\n")
+            for link in seen_jobs:
+                f.write(link + "\n")
 
-        # Чистим память перед сном
+        # 8. Чистим память
         kill_zombie_browsers()
 
+        print("\n" + "=" * 60)
         print("💤 Цикл завершен. Ухожу в спячку на 20 минут...")
-        time.sleep(1200)
+        print("=" * 60)
+        time.sleep(1200)  # 20 минут
 
 
 if __name__ == "__main__":
-    run_daemon()
+    try:
+        run_daemon()
+    except KeyboardInterrupt:
+        print("\n\n⏹️  Агент остановлен пользователем.")
+    except Exception as e:
+        print(f"\n❌ КРИТИЧЕСКАЯ ОШИБКА: {e}")
+        import traceback
+        traceback.print_exc()

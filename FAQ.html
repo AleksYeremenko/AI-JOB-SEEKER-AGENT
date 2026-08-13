@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Job Seeker - FAQ</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; padding: 40px; background: #0f172a; color: #e2e8f0; }
+        .container { max-width: 900px; margin: auto; background: #1e293b; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative; }
+        .header-actions { position: absolute; top: 40px; right: 40px; display: flex; gap: 15px; }
+        h1 { color: #38bdf8; text-align: left; font-size: 2.5em; margin-bottom: 10px; margin-top: 0; }
+        h2 { color: #f43f5e; border-bottom: 2px solid #334155; padding-bottom: 10px; margin-top: 40px; }
+        h3 { color: #a78bfa; margin-top: 30px; }
+        p, li { font-size: 1.1em; color: #cbd5e1; }
+        ul { margin-bottom: 20px; }
+        .highlight { background: rgba(56, 189, 248, 0.1); padding: 2px 6px; border-radius: 4px; color: #38bdf8; font-family: monospace; }
+        .btn-sim { display: inline-block; background: #38bdf8; color: #0f172a; padding: 5px 10px; border-radius: 6px; font-weight: bold; margin: 2px; }
+        .warning { background: rgba(244, 63, 94, 0.1); border-left: 4px solid #f43f5e; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        
+        .btn-action { background: #38bdf8; color: #0f172a; padding: 8px 16px; border-radius: 8px; font-weight: bold; text-decoration: none; border: none; cursor: pointer; transition: 0.2s; font-size: 1em; }
+        .btn-action:hover { background: #7dd3fc; }
+        .btn-help { background: #f43f5e; color: white; }
+        .btn-help:hover { background: #fb7185; }
+        
+        .lang-en { display: none; }
+    </style>
+    <script>
+        let currentLang = 'ru';
+        function toggleLanguage() {
+            const ruElements = document.querySelectorAll('.lang-ru');
+            const enElements = document.querySelectorAll('.lang-en');
+            const langBtn = document.getElementById('lang-btn');
+            
+            if (currentLang === 'ru') {
+                ruElements.forEach(el => el.style.display = 'none');
+                enElements.forEach(el => el.style.display = 'block');
+                langBtn.textContent = 'RU';
+                currentLang = 'en';
+            } else {
+                ruElements.forEach(el => el.style.display = 'block');
+                enElements.forEach(el => el.style.display = 'none');
+                langBtn.textContent = 'EN';
+                currentLang = 'ru';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header-actions">
+            <button id="lang-btn" class="btn-action" onclick="toggleLanguage()">EN</button>
+            <a href="mailto:morphalwork@gmail.com" class="btn-action btn-help lang-ru">HELP (Поддержка)</a>
+            <a href="mailto:morphalwork@gmail.com" class="btn-action btn-help lang-en">HELP (Support)</a>
+        </div>
+
+        <!-- RUSSIAN CONTENT -->
+        <div class="lang-ru">
+            <h1>🚀 AI Job Seeker Agent</h1>
+            <p style="color: #94a3b8;">Полная инструкция по использованию бота-рекрутера</p>
+
+            <h2>1. Как это работает?</h2>
+            <p>Наш ИИ-агент полностью автоматизирует процесс поиска работы. Он делает следующее:</p>
+            <ul>
+                <li>Парсит вакансии с популярных сайтов (Pracuj.pl, JustJoin.it, Djinni и международных досок).</li>
+                <li>Анализирует описание вакансии с помощью локального LLM (Ollama) и выставляет процент совпадения (Match %).</li>
+                <li>Генерирует уникальное резюме (PDF) под конкретную компанию, выделяя нужные навыки.</li>
+                <li>Сам заполняет формы, отвечает на кастомные вопросы ATS-систем (например, Traffit), ставит галочки RODO и нажимает "Отправить".</li>
+            </ul>
+
+            <h2>2. Настройки в программе</h2>
+            <h3>Выбор формата резюме (CV Template)</h3>
+            <p>Вы можете выбрать один из дизайнов для генерируемого резюме:</p>
+            <ul>
+                <li><b>Classic_ATS</b> - Строгий формат, который идеально читается ATS ботами корпораций.</li>
+                <li><b>Modern_Tech</b> - Современный, с выделенной боковой панелью. Отлично для IT-компаний.</li>
+                <li><b>Creative_Startup</b> - Яркий и стильный. Для стартапов.</li>
+            </ul>
+
+            <h3>Режимы работы</h3>
+            <ul>
+                <li><span class="btn-sim">Non-Tech Job</span> - Отключает глубокий LLM-анализ вакансий. Бот спамит откликами на всё подряд.</li>
+                <li><span class="btn-sim">Ignore Large Companies</span> - Пропускает гигантские корпорации (Google, Amazon), где боты бессильны против бюрократии (Taleo/Workday).</li>
+                <li><span class="btn-sim">Autonomous Mode</span> - Бот будет работать бесконечно, просыпаясь каждые 30 минут для поиска новых вакансий.</li>
+            </ul>
+
+            <h2>3. Решение проблем (Bulletproof Engine)</h2>
+            <div class="warning">
+                Бот оснащен системой <b>Bulletproof Engine</b>. Если он натыкается на сложную кастомную форму, он самостоятельно собирает контекст вопросов и отправляет их в LLM для анализа. Если он окончательно не справляется, вакансия помечается как <b>"Failed"</b>.
+            </div>
+            <p>Все результаты (как успешные отклики, так и отказы с причинами) записываются в <b>Dashboard</b>.</p>
+        </div>
+
+        <!-- ENGLISH CONTENT -->
+        <div class="lang-en">
+            <h1>🚀 AI Job Seeker Agent</h1>
+            <p style="color: #94a3b8;">Complete guide on using the automated recruiter bot</p>
+
+            <h2>1. How it works?</h2>
+            <p>Our AI agent fully automates the job search process:</p>
+            <ul>
+                <li>Scrapes job boards (Pracuj.pl, JustJoin.it, Djinni, international boards).</li>
+                <li>Analyzes job descriptions using local LLM (Ollama) and scores match percentages.</li>
+                <li>Generates a unique PDF CV tailored to the specific company.</li>
+                <li>Autofills application forms, answers custom ATS questions, ticks RODO checkboxes, and hits "Apply".</li>
+            </ul>
+
+            <h2>2. Application Settings</h2>
+            <h3>CV Templates</h3>
+            <ul>
+                <li><b>Classic_ATS</b> - Clean format, 100% readable by corporate ATS bots.</li>
+                <li><b>Modern_Tech</b> - Modern sidebar layout for IT companies.</li>
+                <li><b>Creative_Startup</b> - Vibrant and stylish for startups.</li>
+            </ul>
+
+            <h3>Work Modes</h3>
+            <ul>
+                <li><span class="btn-sim">Non-Tech Job</span> - Disables deep LLM analysis. Spams applications strictly by keywords.</li>
+                <li><span class="btn-sim">Ignore Large Companies</span> - Skips FAANG and massive banks where bots fail against Workday/Taleo.</li>
+                <li><span class="btn-sim">Autonomous Mode</span> - Bot runs indefinitely, waking up every 30 minutes to search for new jobs.</li>
+            </ul>
+
+            <h2>3. Troubleshooting (Bulletproof Engine)</h2>
+            <div class="warning">
+                The bot is equipped with a <b>Bulletproof Engine</b>. If it encounters a complex custom ATS form, it parses the questions and sends them to the local LLM for context-aware answering.
+            </div>
+            <p>All application results are logged in your <b>Dashboard</b>.</p>
+        </div>
+
+    </div>
+</body>
+</html>

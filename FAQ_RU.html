@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Job Seeker - Инструкция (FAQ)</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; padding: 40px; background: #0f172a; color: #e2e8f0; }
+        .container { max-width: 900px; margin: auto; background: #1e293b; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { color: #38bdf8; text-align: center; font-size: 2.5em; margin-bottom: 10px; }
+        h2 { color: #f43f5e; border-bottom: 2px solid #334155; padding-bottom: 10px; margin-top: 40px; }
+        h3 { color: #a78bfa; margin-top: 30px; }
+        p, li { font-size: 1.1em; color: #cbd5e1; }
+        ul { margin-bottom: 20px; }
+        .highlight { background: rgba(56, 189, 248, 0.1); padding: 2px 6px; border-radius: 4px; color: #38bdf8; font-family: monospace; }
+        .btn-sim { display: inline-block; background: #38bdf8; color: #0f172a; padding: 5px 10px; border-radius: 6px; font-weight: bold; margin: 2px; }
+        .warning { background: rgba(244, 63, 94, 0.1); border-left: 4px solid #f43f5e; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 AI Job Seeker Agent</h1>
+        <p style="text-align: center; color: #94a3b8;">Полная инструкция по использованию бота-рекрутера</p>
+
+        <h2>1. Как это работает?</h2>
+        <p>Наш ИИ-агент полностью автоматизирует процесс поиска работы. Он делает следующее:</p>
+        <ul>
+            <li>Парсит вакансии с популярных сайтов (Pracuj.pl, JustJoin.it, Djinni, NoFluffJobs и международных досок).</li>
+            <li>Анализирует описание вакансии с помощью локального LLM (Ollama) и выставляет процент совпадения (Match %).</li>
+            <li>Если совпадение выше заданного порога, бот автоматически откликается на вакансию.</li>
+            <li>Генерирует уникальное резюме (PDF) под конкретную компанию, выделяя нужные навыки.</li>
+            <li>Сам заполняет формы, отвечает на кастомные вопросы, ставит галочки RODO и нажимает "Отправить".</li>
+        </ul>
+
+        <h2>2. Настройки в программе</h2>
+        <h3>Личные данные и Стек</h3>
+        <p>Укажите ваше реальное Имя, Фамилию, Email и Телефон. В поле <b>Tech Stack</b> перечислите технологии через запятую (например: <span class="highlight">Python, Django, AWS, Docker</span>). Бот будет использовать их для поиска.</p>
+        
+        <h3>Выбор формата резюме (CV Template)</h3>
+        <p>Вы можете выбрать один из 3-х дизайнов для генерируемого резюме:</p>
+        <ul>
+            <li><b>Classic_ATS</b> - Строгий, черно-белый формат. 100% читаемость для ботов ATS. Лучший выбор для корпораций и банков.</li>
+            <li><b>Modern_Tech</b> - Современный, с выделенной боковой панелью. Отлично для IT.</li>
+            <li><b>Creative_Startup</b> - Яркий и стильный. Для стартапов.</li>
+        </ul>
+
+        <h3>Режимы работы и галочки</h3>
+        <ul>
+            <li><b>Job Type & Seniority:</b> Теперь вы можете выбрать сразу несколько вариантов (например, Junior и Mid, Remote и Hybrid).</li>
+            <li><span class="btn-sim">Non-Tech Job</span> - Отключает глубокий LLM-анализ вакансий. Бот просто спамит откликами на всё подряд по ключевым словам.</li>
+            <li><span class="btn-sim">Ignore Large Companies</span> - Пропускает FAANG (Google, Amazon) и гигантские банки, где боты обычно бессильны против сложной бюрократии Taleo/Workday.</li>
+            <li><span class="btn-sim">Autonomous Mode</span> - Бот будет работать бесконечно, просыпаясь каждые 30 минут для поиска новых вакансий.</li>
+        </ul>
+
+        <h2>3. Что делать, если бот "застрял"?</h2>
+        <div class="warning">
+            <b>Важно:</b> Бот использует технологию "Bulletproof Applier". Если он не может сам найти кнопку "Отправить" или не понимает форму (хитрый кастомный ATS), он выведет красное предупреждение в консоли, но не закроет вкладку сразу.
+        </div>
+        <p>Алгоритм теперь сам пытается решить проблему (перепроверяет поля, кликает скрытые чекбоксы). Если он окончательно не справляется, он помечает вакансию как <b>"Failed"</b> и записывает причину в Дашборд, чтобы не тратить ваше время на зависание.</p>
+
+        <h2>4. Дашборд (Dashboard)</h2>
+        <p>Все результаты сохраняются в <span class="highlight">dashboard.html</span>. Нажмите кнопку <b>"Dashboard"</b> в верхнем меню программы, чтобы открыть его. Там вы увидите список всех успешных откликов, а также те, которые не получились (с указанием причины).</p>
+    </div>
+</body>
+</html>

@@ -22,7 +22,7 @@ COMMON_FIELDS = {
     "cv_file":    ['input[type="file"]'],
 }
 
-COMMON_LABELS = {
+COMMON_LABELS = {000
     "full_name":  r"imię|imie|name|first",
     "first_name": r"imię|imie|first",
     "last_name":  r"nazwisko|last|surname",
