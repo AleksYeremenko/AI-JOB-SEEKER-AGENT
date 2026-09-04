@@ -539,13 +539,17 @@ class JustJoinApplier(BaseApplier):
         except Exception as e:
             print(f"⚠️ {e}")
 
-        print("☑️ [JustJoin] ...")
+        print("☑️ [JustJoin] Checking terms and conditions...")
         try:
-            checkboxes = target_page.locator('input[type="checkbox"]:not([checked])')
-            for i in range(checkboxes.count()):
+            # We locate all checkboxes, but only check them if they are not already checked.
+            # Using evaluate to avoid relying on the DOM 'checked' attribute which might not update.
+            checkboxes = target_page.locator('input[type="checkbox"]')
+            count = checkboxes.count()
+            for i in range(count):
                 try:
                     cb = checkboxes.nth(i)
-                    if cb.is_visible():
+                    is_checked = cb.evaluate("el => el.checked")
+                    if not is_checked:
                         time.sleep(random.uniform(0.3, 0.7))
                         cb.check(force=True, timeout=1000)
                 except:
@@ -554,11 +558,16 @@ class JustJoinApplier(BaseApplier):
             pass
 
         try:
-            mat_checkboxes = target_page.locator('mat-checkbox:not(.mat-checkbox-checked)')
-            for i in range(mat_checkboxes.count()):
+            # Locate all mat-checkboxes without filtering by class first to avoid jumping indexes
+            mat_checkboxes = target_page.locator('mat-checkbox')
+            count = mat_checkboxes.count()
+            for i in range(count):
                 try:
-                    time.sleep(random.uniform(0.4, 0.9))
-                    mat_checkboxes.nth(i).click(force=True, timeout=1000)
+                    cb = mat_checkboxes.nth(i)
+                    class_name = cb.evaluate("el => el.className")
+                    if 'mat-checkbox-checked' not in class_name:
+                        time.sleep(random.uniform(0.4, 0.9))
+                        cb.click(force=True, timeout=1000)
                 except:
                     pass
         except:

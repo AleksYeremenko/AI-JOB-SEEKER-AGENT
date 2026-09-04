@@ -106,7 +106,8 @@ class BaseApplier:
         session_id = int(time.time())
         try:
             path = f"Data/screenshots/{session_id}_{suffix}.png"
-            page.screenshot(path=path)
+            # Убрали animations="disabled", так как он замораживает модалки на моменте прозрачности
+            page.screenshot(path=path, timeout=15000)
             print(f"📸 Скриншот сохранен: {path}")
             return path
         except Exception as e:

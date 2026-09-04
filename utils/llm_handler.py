@@ -13,7 +13,7 @@ from langchain_ollama import ChatOllama
 class LLMHandler:
     def __init__(self):
         # Local AI does not require API keys
-        self.fast_model_name = "qwen2.5-coder:7b"      # For fast parsing and sorting
+        self.fast_model_name = "qwen2.5-coder:7b"      # Возвращаем 7b, так как 1.5b слишком глупая
         self.smart_model_name = "job-vision-model:latest"  # Your trained model for CV generation
         import threading
         self.llm_lock = threading.Lock()
@@ -192,6 +192,7 @@ class LLMHandler:
 
 Твоя задача — переписать bullet points в опыте работы кандидата так, чтобы они лучше соответствовали ключевым словам из описания вакансии. 
 КАТЕГОРИЧЕСКИ ЗАПРЕЩАЕТСЯ ВЫДУМЫВАТЬ НОВЫЕ КОМПАНИИ, НОВЫЕ МЕСТА РАБОТЫ ИЛИ ТОГО, ЧЕГО НЕТ В РЕЗЮМЕ. Используй только те компании и должности, которые есть в РЕАЛЬНОМ РЕЗЮМЕ.
+КРИТИЧЕСКИ ВАЖНО ДЛЯ ATS: Используй ТОЧНО ТАКИЕ ЖЕ термины и названия технологий, как в описании вакансии. Совпадение должно быть посимвольным. Если в вакансии написано 'React.js', ты ДОЛЖЕН писать 'React.js', а не 'React' или 'ReactJS'.
 ВАЖНО: Не используй дефисы или тире внутри массивов (например, внутри "description"), позволь HTML/CSS самостоятельно отрисовывать маркеры списка.
 
 ВЕРНИ ОТВЕТ СТРОГО В ФОРМАТЕ JSON, БЕЗ МАРКДАУНА, БЕЗ ЛИШНЕГО ТЕКСТА.

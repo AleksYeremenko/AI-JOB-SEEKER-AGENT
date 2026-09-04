@@ -1,0 +1,494 @@
+{
+  "icon 0": {
+    "type": "text",
+    "bbox": [
+      0.32760417461395264,
+      0.12169311940670013,
+      0.5192708373069763,
+      0.16613756120204926
+    ],
+    "interactivity": false,
+    "content": "Senior Platform Engineer",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 1": {
+    "type": "text",
+    "bbox": [
+      0.5333333611488342,
+      0.12275132536888123,
+      0.698437511920929,
+      0.16825397312641144
+    ],
+    "interactivity": false,
+    "content": "Developer Experience",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 2": {
+    "type": "text",
+    "bbox": [
+      0.7135416865348816,
+      0.12486772239208221,
+      0.7333333492279053,
+      0.1587301641702652
+    ],
+    "interactivity": false,
+    "content": "Al",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 3": {
+    "type": "text",
+    "bbox": [
+      0.3270833194255829,
+      0.16507937014102936,
+      0.4208333194255829,
+      0.20317460596561432
+    ],
+    "interactivity": false,
+    "content": "Enablement",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 4": {
+    "type": "text",
+    "bbox": [
+      0.22239583730697632,
+      0.31322750449180603,
+      0.3036458194255829,
+      0.3333333432674408
+    ],
+    "interactivity": false,
+    "content": "Smart Tracker wlaczony",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 5": {
+    "type": "text",
+    "bbox": [
+      0.3072916567325592,
+      0.31005290150642395,
+      0.41458332538604736,
+      0.3354497253894806
+    ],
+    "interactivity": false,
+    "content": "po wyslaniu aplikacji otrzymasz",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 6": {
+    "type": "text",
+    "bbox": [
+      0.43697917461395264,
+      0.31216931343078613,
+      0.5234375,
+      0.3333333432674408
+    ],
+    "interactivity": false,
+    "content": "monitorowania jej statusu",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 7": {
+    "type": "text",
+    "bbox": [
+      0.19374999403953552,
+      0.39153438806533813,
+      0.2864583432674408,
+      0.4253968298435211
+    ],
+    "interactivity": false,
+    "content": "Dane kandydata",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 8": {
+    "type": "text",
+    "bbox": [
+      0.49947917461395264,
+      0.4624338746070862,
+      0.5338541865348816,
+      0.4793650805950165
+    ],
+    "interactivity": false,
+    "content": "Nazwisko",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 9": {
+    "type": "text",
+    "bbox": [
+      0.19427083432674408,
+      0.5597883462905884,
+      0.22031250596046448,
+      0.5767195820808411
+    ],
+    "interactivity": false,
+    "content": "Telefon",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 10": {
+    "type": "text",
+    "bbox": [
+      0.49947917461395264,
+      0.5597883462905884,
+      0.520312488079071,
+      0.5767195820808411
+    ],
+    "interactivity": false,
+    "content": "Email",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 11": {
+    "type": "text",
+    "bbox": [
+      0.4703125059604645,
+      0.6571428775787354,
+      0.4932291805744171,
+      0.6740740537643433
+    ],
+    "interactivity": false,
+    "content": "2OMB)",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 12": {
+    "type": "text",
+    "bbox": [
+      0.5005208253860474,
+      0.6550264358520508,
+      0.6067708134651184,
+      0.6719576716423035
+    ],
+    "interactivity": false,
+    "content": "Preferowana forma zatrudnienia",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 13": {
+    "type": "text",
+    "bbox": [
+      0.23749999701976776,
+      0.6920635104179382,
+      0.2760416567325592,
+      0.7174603343009949
+    ],
+    "interactivity": false,
+    "content": "aby dodac",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 14": {
+    "type": "text",
+    "bbox": [
+      0.19427083432674408,
+      0.7513227462768555,
+      0.3213541805744171,
+      0.7724867463111877
+    ],
+    "interactivity": false,
+    "content": "Oczekiwania finansowe (brutto na UoP",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 15": {
+    "type": "text",
+    "bbox": [
+      0.3265624940395355,
+      0.7544973492622375,
+      0.3723958432674408,
+      0.7714285850524902
+    ],
+    "interactivity": false,
+    "content": "netto na B2B)",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 16": {
+    "type": "text",
+    "bbox": [
+      0.49947917461395264,
+      0.7523809671401978,
+      0.5848958492279053,
+      0.7714285850524902
+    ],
+    "interactivity": false,
+    "content": "Skad dowiedziales/as sie",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 17": {
+    "type": "text",
+    "bbox": [
+      0.5895833373069763,
+      0.7513227462768555,
+      0.6182291507720947,
+      0.7724867463111877
+    ],
+    "interactivity": false,
+    "content": "ofercie?",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 18": {
+    "type": "text",
+    "bbox": [
+      0.1927083283662796,
+      0.8666666746139526,
+      0.30520832538604736,
+      0.9058201313018799
+    ],
+    "interactivity": false,
+    "content": "Dodatkowe pytania",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 19": {
+    "type": "text",
+    "bbox": [
+      0.19427083432674408,
+      0.9407407641410828,
+      0.26510417461395264,
+      0.9576719403266907
+    ],
+    "interactivity": false,
+    "content": "Miasto zamieszkania",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 20": {
+    "type": "text",
+    "bbox": [
+      0.49947917461395264,
+      0.9407407641410828,
+      0.5161458253860474,
+      0.9576719403266907
+    ],
+    "interactivity": false,
+    "content": "Jaki",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 21": {
+    "type": "text",
+    "bbox": [
+      0.5296875238418579,
+      0.9386243224143982,
+      0.6119791865348816,
+      0.9597883820533752
+    ],
+    "interactivity": false,
+    "content": "Twoj poziom znajomosci",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 22": {
+    "type": "text",
+    "bbox": [
+      0.6338541507720947,
+      0.9407407641410828,
+      0.6807291507720947,
+      0.9597883820533752
+    ],
+    "interactivity": false,
+    "content": "angielskiego?",
+    "source": "box_ocr_content_ocr"
+  },
+  "icon 23": {
+    "type": "icon",
+    "bbox": [
+      0.4955887794494629,
+      0.4839305877685547,
+      0.8018167018890381,
+      0.5400325655937195
+    ],
+    "interactivity": true,
+    "content": "Yeremenko ",
+    "source": "box_yolo_content_ocr"
+  },
+  "icon 24": {
+    "type": "icon",
+    "bbox": [
+      0.19043438136577606,
+      0.4830760061740875,
+      0.4938909411430359,
+      0.5399673581123352
+    ],
+    "interactivity": true,
+    "content": "Aleks Yeremenko ",
+    "source": "box_yolo_content_ocr"
+  },
+  "icon 25": {
+    "type": "icon",
+    "bbox": [
+      0.4947759509086609,
+      0.6772289872169495,
+      0.8021103143692017,
+      0.7343041896820068
+    ],
+    "interactivity": true,
+    "content": "Kliknij; aby rozwinac liste. ",
+    "source": "box_yolo_content_ocr"
+  },
+  "icon 26": {
+    "type": "icon",
+    "bbox": [
+      0.18999047577381134,
+      0.5812433958053589,
+      0.49470779299736023,
+      0.6373953819274902
+    ],
+    "interactivity": true,
+    "content": "516478223 ",
+    "source": "box_yolo_content_ocr"
+  },
+  "icon 27": {
+    "type": "icon",
+    "bbox": [
+      0.4951874613761902,
+      0.5811514258384705,
+      0.802392303943634,
+      0.6372110247612
+    ],
+    "interactivity": true,
+    "content": "example@domain com ",
+    "source": "box_yolo_content_ocr"
+  },
+  "icon 28": {
+    "type": "icon",
+    "bbox": [
+      0.49470996856689453,
+      0.7733867168426514,
+      0.8017762303352356,
+      0.8309831619262695
+    ],
+    "interactivity": true,
+    "content": "aby rozwinac Miste: ",
+    "source": "box_yolo_content_ocr"
+  },
+  "icon 29": {
+    "type": "icon",
+    "bbox": [
+      0.19353966414928436,
+      0.9630138874053955,
+      0.494970440864563,
+      1.0
+    ],
+    "interactivity": true,
+    "content": "Warsaw ",
+    "source": "box_yolo_content_ocr"
+  },
+  "icon 30": {
+    "type": "icon",
+    "bbox": [
+      0.4935600161552429,
+      0.961695671081543,
+      0.8017968535423279,
+      1.0
+    ],
+    "interactivity": true,
+    "content": "aby rozwinac liste: ",
+    "source": "box_yolo_content_ocr"
+  },
+  "icon 31": {
+    "type": "icon",
+    "bbox": [
+      0.2121005654335022,
+      0.12159445881843567,
+      0.3051661252975464,
+      0.20733831822872162
+    ],
+    "interactivity": true,
+    "content": "TRANS.EU ",
+    "source": "box_yolo_content_ocr"
+  },
+  "icon 32": {
+    "type": "icon",
+    "bbox": [
+      0.19080257415771484,
+      0.7724753022193909,
+      0.4943143129348755,
+      0.8321918845176697
+    ],
+    "interactivity": true,
+    "content": "Justified",
+    "source": "box_yolo_content_yolo"
+  },
+  "icon 33": {
+    "type": "icon",
+    "bbox": [
+      0.7671826481819153,
+      0.007587022613734007,
+      0.7887305021286011,
+      0.05391300842165947
+    ],
+    "interactivity": true,
+    "content": "Text formatting.",
+    "source": "box_yolo_content_yolo"
+  },
+  "icon 34": {
+    "type": "icon",
+    "bbox": [
+      0.74398273229599,
+      0.007790024857968092,
+      0.7649965882301331,
+      0.05333971232175827
+    ],
+    "interactivity": true,
+    "content": "Text formatting.",
+    "source": "box_yolo_content_yolo"
+  },
+  "icon 35": {
+    "type": "icon",
+    "bbox": [
+      0.7890134453773499,
+      0.0072765471413731575,
+      0.8111230731010437,
+      0.05374377220869064
+    ],
+    "interactivity": true,
+    "content": "Dictation",
+    "source": "box_yolo_content_yolo"
+  },
+  "icon 36": {
+    "type": "icon",
+    "bbox": [
+      0.46938782930374146,
+      0.6868484020233154,
+      0.48469048738479614,
+      0.7243857979774475
+    ],
+    "interactivity": true,
+    "content": "Link",
+    "source": "box_yolo_content_yolo"
+  },
+  "icon 37": {
+    "type": "icon",
+    "bbox": [
+      0.9914709329605103,
+      0.9824557304382324,
+      0.9999712109565735,
+      1.0
+    ],
+    "interactivity": true,
+    "content": "M0,0L9,4 4.5,5z",
+    "source": "box_yolo_content_yolo"
+  },
+  "icon 38": {
+    "type": "icon",
+    "bbox": [
+      0.9918695688247681,
+      0.0013748320052400231,
+      1.0,
+      0.02161899209022522
+    ],
+    "interactivity": true,
+    "content": "Up arrow",
+    "source": "box_yolo_content_yolo"
+  },
+  "icon 39": {
+    "type": "icon",
+    "bbox": [
+      0.6068896055221558,
+      0.6525272727012634,
+      0.6128495335578918,
+      0.6731669902801514
+    ],
+    "interactivity": true,
+    "content": "Red",
+    "source": "box_yolo_content_yolo"
+  },
+  "icon 40": {
+    "type": "icon",
+    "bbox": [
+      0.720493733882904,
+      0.0075776055455207825,
+      0.7423343062400818,
+      0.053528688848018646
+    ],
+    "interactivity": true,
+    "content": "The letter \"A\".",
+    "source": "box_yolo_content_yolo"
+  }
+}

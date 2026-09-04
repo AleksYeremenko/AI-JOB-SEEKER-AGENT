@@ -31,48 +31,63 @@ def scrape_djinni(keyword, seniority_filter="Junior", settings=None):
         time.sleep(4)
         
         # Check login
-        if "login" in page.url or page.ele("text:Sign in"):
-            print("⚠️ [Djinni] Warning: Not logged in. Results may be limited.")
+        if "login" in page.url or page.ele("text:Sign in") or page.ele("text:Увійти") or page.ele("text:Войти"):
+            print("⚠️ [Djinni] Warning: Not logged in. Djinni hides results for unauthorized users.")
+            print("🔄 [Djinni] Перезапускаю браузер в видимом режиме для ручной авторизации...")
+            page.quit()
             
-        # Parse job cards (Djinni's standard UI)
-        job_items = page.eles('css:.job-item')
-        if not job_items:
-            # Fallback for older Djinni layout
-            job_items = page.eles('css:.list-jobs__item')
+            co.headless(False)
+            page = ChromiumPage(co)
+            page.get("https://djinni.co/login")
+            print("⏳ У вас есть 60 секунд, чтобы войти в аккаунт...")
             
-        print(f"✅ [Djinni] Found {len(job_items)} jobs on page 1.")
+            for _ in range(30):
+                time.sleep(2)
+                if "login" not in page.url and not page.ele("text:Sign in") and not page.ele("text:Увійти"):
+                    print("✅ Успешная авторизация! Продолжаем парсинг.")
+                    break
+            else:
+                print("⚠️ Время вышло. Парсинг может выдать 0 результатов.")
+                
+            page.get(search_url)
+            time.sleep(4)
+            
+        # Parse job cards using BeautifulSoup for robustness
+        from bs4 import BeautifulSoup
+        import re
         
-        for item in job_items:
+        soup = BeautifulSoup(page.html, 'html.parser')
+        job_links = soup.find_all('a', href=re.compile(r'/jobs/\d+-'))
+        
+        print(f"✅ [Djinni] Found {len(job_links)} jobs on page 1.")
+        
+        for l in job_links:
             try:
-                title_ele = item.ele('css:.job-item__position', timeout=1)
-                link_ele = item.ele('tag:a@@class:job_item__header-link', timeout=1)
+                # The new Djinni layout wraps the whole header in an 'a' tag
+                href = l.get('href')
+                link = "https://djinni.co" + href if href and not href.startswith('http') else href
                 
+                title_ele = l.find('h2')
                 if not title_ele:
-                    title_ele = item.ele('css:.job-list-item__link', timeout=1)
-                if not title_ele: continue
-                
-                title = title_ele.text
-                link = link_ele.attr('href') if link_ele else item.ele('tag:a').attr('href')
-                if link and not link.startswith('http'): link = "https://djinni.co" + link
-                
-                # Description usually inside id=job-description-XXXXX
-                desc = item.text
-                
-                company = "Unknown"
-                company_ele = item.ele('css:header > a', timeout=1)
-                if not company_ele:
-                    company_ele = item.ele('css:header span.text-gray-800', timeout=1)
-                
-                if company_ele:
-                    company = company_ele.text
+                    # Fallback if h2 is missing, just use the first text line
+                    title = l.text.strip().split('\n')[0]
                 else:
-                    # Alternative company element
-                    comp_alt = item.ele('css:.job-list-item__counts a', timeout=1)
-                    if comp_alt: company = comp_alt.text
+                    title = title_ele.text.strip()
+                    
+                company = "Unknown"
+                company_span = l.find('span', class_='text-gray-800')
+                if company_span:
+                    company = company_span.text.strip()
+                
+                # Description usually in the parent card
+                desc = ""
+                parent_card = l.find_parent('div', class_=re.compile(r'job-item'))
+                if parent_card:
+                    desc = parent_card.text.strip()
                 
                 jobs.append({
                     "title": title,
-                    "company": company.strip(),
+                    "company": company,
                     "link": link,
                     "description": desc,
                     "source": "Djinni"

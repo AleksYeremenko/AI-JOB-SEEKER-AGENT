@@ -304,19 +304,23 @@ class BulletproofApplier(BaseApplier):
         print("☑️ Scanning and checking checkboxes...")
         try:
             checkboxes = frame.locator('input[type="checkbox"]')
-            for i in range(checkboxes.count()):
+            count = checkboxes.count()
+            for i in range(count):
                 try:
                     cb = checkboxes.nth(i)
-                    if cb.is_checked(): continue
-                    cb.check(force=True)
-                    if not cb.is_visible():
+                    is_checked = cb.evaluate("el => el.checked")
+                    if is_checked: continue
+                    
+                    try:
+                        # Try standard visible check first
+                        cb.check(timeout=1000)
+                    except:
+                        # If hidden or intercepted, click parent label or force JS click
                         parent_label = cb.locator("xpath=ancestor::label").first
                         if parent_label.is_visible():
                             parent_label.click(force=True)
                         else:
-                            checkbox_icon = cb.locator("xpath=..//span[contains(@class, 'checkbox')]").first
-                            if checkbox_icon.is_visible():
-                                checkbox_icon.click(force=True)
+                            cb.evaluate("el => el.click()")
                 except: pass
         except: pass
 
